@@ -75,27 +75,3 @@ void process_pitot (){
     fclose (fp_in);
     fclose (fp_out);
 }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   

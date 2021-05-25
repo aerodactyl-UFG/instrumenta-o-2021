@@ -68,13 +68,3 @@ char* NameProcess (char *Name, int n){
 	sprintf (name, "%s%s_%d%s", LocalSave, Name, NumLido, Extension);
 	return name;
 }
-
-/*
-int main (){
-	#define FILE_IN "IMU"
-	char file_in[] = FILE_IN;
-	
-	printf("\n%s",file_in);
-	printf("\n%s",concatenar(file_in,1));
-}
-*/
