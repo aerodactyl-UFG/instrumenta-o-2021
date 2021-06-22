@@ -30,6 +30,7 @@ void Beep (){
 		
 }
 
+
 void ReadChave (int *estado){
 		
 	wiringPiSetup();	
@@ -40,6 +41,7 @@ void ReadChave (int *estado){
 		chave = digitalRead(PIN_CHAVE);
 		if ( !(chave) ){
 			*estado = !(*estado);
+			digitalWrite(PIN_LED, *estado);
 			Beep();
 			delay(5000);
 		}
