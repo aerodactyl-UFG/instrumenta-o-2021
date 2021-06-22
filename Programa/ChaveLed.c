@@ -1,5 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <wiringPi.h>
+#include <thread>
 
 #define PIN_CHAVE 	0	//WiringPi pins
 #define PIN_BEEP	7
@@ -14,24 +16,50 @@ int desliga(){
 
 void Setup_Pins(void){
 	pinMode(PIN_CHAVE, INPUT);
-	pinMode(PIN_BEEP,OUTPUT);
-	pinMode(PIN_LED,OUTPUT);
+	pinMode(PIN_BEEP, OUTPUT);
+	pinMode(PIN_LED, OUTPUT);
 
    	pullUpDnControl(PIN_CHAVE, PUD_UP);
    	}
 
-void ReadChave (int *chave){
-	
+void Beep (){
+
+	digitalWrite(PIN_BEEP, 1);
+	delay (1000);
+	digitalWrite(PIN_BEEP, 0);
+		
+}
+
+void ReadChave (int *estado){
+		
+	wiringPiSetup();	
+	Setup_Pins();
+	int chave=0;
 	
 	while(1){	
-	chave = digitalRead(PIN_CHAVE);
-	printf("\nEstado: %d", chave);	
-	delay (1000);
+		chave = digitalRead(PIN_CHAVE);
+		if ( !(chave) ){
+			*estado = !(*estado);
+			Beep();
+			delay(5000);
+		}
+	delay (500);
 	}	
 }
 
+
 int main(){
-	chave;
-	ReadChave(&chave);
 	
+	int estado = 0;
+	printf("\nEstado: %d", estado);
+	
+	std::thread t1 (ReadChave, &estado );
+
+	while(1){
+		printf("\nEstado: %d", estado);
+		delay(400);
+	}
+
+	t1.join();
+
 }
