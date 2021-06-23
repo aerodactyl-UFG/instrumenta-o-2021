@@ -29,22 +29,25 @@ void WriteManager (int NumSave[]){
 	fclose(FpNum);
 }
 
-void UpdateManager (int N){
+int UpdateManager (int N){
 	int *atual = ReadManager();
 
 	if(N==1){	//nova leitura de dados sem processamento
 		cache[0] = atual[0] + 1; //modifica apenas "voo atual"
 		cache[1] = atual[1];
 		WriteManager(cache);
+		return (1);
 	}
-	else if(N==2 && (cache[1] < cache[0]) ){	
+	else if(N==2 && (atual[1] < atual[0]) ){	
 		cache[0] = atual[0];
 		cache[1] = atual[1] + 1; //modifica apenas "voos processados"
 		WriteManager(cache);
+		return (1);
 	}
 	else{
 //		printf("\nOpção invalida para manager");
 		delay(500);
+		return(0);
 	}
 
 }

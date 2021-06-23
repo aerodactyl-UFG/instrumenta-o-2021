@@ -19,23 +19,33 @@ void Setup_Pins(void){
 	pinMode(PIN_BEEP, OUTPUT);
 	pinMode(PIN_LED, OUTPUT);
 
-   	pullUpDnControl(PIN_CHAVE, PUD_UP);
+   	pullUpDnControl(PIN_CHAVE, PUD_UP);	
    	}
 
-void Beep (){
-
+void Test_Interface(){
+	digitalWrite(PIN_LED, 1);
 	digitalWrite(PIN_BEEP, 1);
-	delay (1000);
+
+	delay(1000);
+
+	digitalWrite(PIN_LED, 0);
 	digitalWrite(PIN_BEEP, 0);
-		
 }
 
+void Beep (){
+	digitalWrite(PIN_BEEP, 1);
+	delay (1000);
+	digitalWrite(PIN_BEEP, 0);	
+}
 
 void ReadChave (int *estado){
-		
+
+	int chave = 0;
 	wiringPiSetup();	
 	Setup_Pins();
-	int chave=0;
+	
+	delay (1000);
+	Test_Interface();
 	
 	while(1){	
 		chave = digitalRead(PIN_CHAVE);
@@ -48,21 +58,3 @@ void ReadChave (int *estado){
 	delay (500);
 	}	
 }
-
-/*
-int main(){
-	
-	int estado = 0;
-	printf("\nEstado: %d", estado);
-	
-	std::thread t1 (ReadChave, &estado );
-
-	while(1){
-		printf("\nEstado: %d", estado);
-		delay(400);
-	}
-
-	t1.join();
-
-}
-*/
