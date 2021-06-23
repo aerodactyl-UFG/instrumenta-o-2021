@@ -1,7 +1,7 @@
 #include <unistd.h>
-#include <stdio.h>
-#include <wiringPi.h>
-#include <thread>
+//#include <stdio.h>
+//#include <wiringPi.h>
+//#include <thread>
 
 #define PIN_CHAVE 	0	//WiringPi pins
 #define PIN_BEEP	7
@@ -49,7 +49,7 @@ void ReadChave (int *estado){
 	}	
 }
 
-
+/*
 int main(){
 	
 	int estado = 0;
@@ -65,3 +65,4 @@ int main(){
 	t1.join();
 
 }
+*/

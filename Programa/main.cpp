@@ -9,6 +9,7 @@
 #include "Process_IMU.c"
 #include "Read_Airspeed.c"
 #include "Process_Airspeed.c"
+#include "ChaveLed.c"
 
 int main(int argc, char *argv[]){
 	int mode = 0;
@@ -21,44 +22,51 @@ int main(int argc, char *argv[]){
         printf("Mode: %d\n", mode);
 
 
-
-	switch(mode){
+	int estado = 0;
+	std::thread t0 (ReadChave, &estado);
+	std::cout << "thread t0 id= " << t0.get_id() << std::endl;	
 	
-	    case 1:	//apenas armazena dados, sem nenhum processamento
-		{
-		UpdateManager(1);	
-		std::thread t1 (read_imu);
-		std::thread t2 (read_pitot);
+	while (1){
 
-		std::cout << "thread t1 id= " << t1.get_id() << std::endl;	
-		std::cout << "thread t2 id= " << t2.get_id() << std::endl;
+//	    switch(mode){
+		if (estado == 1)	
+//	        case 1:	//apenas armazena dados, sem nenhum processamento
+		    {
+		    UpdateManager(1);	
+		    std::thread t1 (read_imu, &estado);
+//		    std::thread t2 (read_pitot, &estado);
 
-		t1.join();
-		t2.join();
-		}
-		break;
+		    std::cout << "thread t1 id= " << t1.get_id() << std::endl;	
+//		    std::cout << "thread t2 id= " << t2.get_id() << std::endl;
+
+  		    t1.join();
+//		    t2.join();
+		    }
+//		    break;
+
+		else
+//	        case 2:	//processar dados restantes
+		    {
+		    UpdateManager(2);	
+		    std::thread t1 (process_imu);
+//		    std::thread t2 (process_pitot);
+
+//		    std::cout << "thread t1 id= " << t1.get_id() << std::endl;	
+//		    std::cout << "thread t2 id= " << t2.get_id() << std::endl;
+
+		    t1.join();
+//		    t2.join();
+		    }	
+//		    break;
 
 
-	    case 2:	//processar dados restantes
-		{
-		UpdateManager(2);	
-		std::thread t1 (process_imu);
-		std::thread t2 (process_pitot);
-
-		std::cout << "thread t1 id= " << t1.get_id() << std::endl;	
-		std::cout << "thread t2 id= " << t2.get_id() << std::endl;
-
-		t1.join();
-		t2.join();
-		}	
-		break;
-
-
-	    default:
-		{printf ("\nErro!!\nModo de execução não definido\n");
-		break;
-		}
+//	        default:
+//		    {printf ("\nErro!!\nModo de execução não definido\n");
+//		    break;
+//		    }
+//	    }
 	}
-	
+
+t0.join();
 return (0);
 }

@@ -37,13 +37,14 @@ void UpdateManager (int N){
 		cache[1] = atual[1];
 		WriteManager(cache);
 	}
-	else if(N==2){	
+	else if(N==2 && (cache[1] < cache[0]) ){	
 		cache[0] = atual[0];
 		cache[1] = atual[1] + 1; //modifica apenas "voos processados"
 		WriteManager(cache);
 	}
 	else{
-		printf("\nOpção invalida para manager");
+//		printf("\nOpção invalida para manager");
+		delay(500);
 	}
 
 }

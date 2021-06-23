@@ -13,7 +13,7 @@
 #define PITOT_IN "AirSpeed"
 #endif
 
-void read_pitot() {
+void read_pitot(int *estado) {
     
     static int fd;
     typedef unsigned char   u8;
@@ -24,7 +24,7 @@ void read_pitot() {
     fp_pitot = fopen(NameIN(file_pitot), "ab");
     int timer;
 
-    while(1){
+    while(*estado == 1){
 	unsigned char bytes[4] = {0, 0, 0, 0};
 	ioctl(fd, I2C_SLAVE, 0x28);
 	read(fd, bytes, 4);

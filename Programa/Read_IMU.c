@@ -41,7 +41,7 @@ void fresh_init(){
 }
 
 
-int read_imu(){
+int read_imu(int *estado){
     double AccX;
     double AccY;
     double AccZ;
@@ -59,7 +59,7 @@ int read_imu(){
     wiringPiI2CWriteReg8(gyro_device_handler,REGISTER_FOR_POWER_MANAGEMENT,SLEEP_MODE_DISABLED);
     fresh_init();
 
-    while(1){
+    while(*estado == 1){
         
 	AccX = read_word_2c(REGISTER_FOR_ACCEL_XOUT_H);
 	AccY = read_word_2c(REGISTER_FOR_ACCEL_YOUT_H);
