@@ -3,8 +3,8 @@
 //#include <wiringPi.h>
 //#include <thread>
 
-#define PIN_CHAVE 	0	//WiringPi pins
-#define PIN_BEEP	7
+#define PIN_CHAVE 	7	//WiringPi pins
+#define PIN_BEEP	0
 #define PIN_LED	1	//WiringPi pins
 
 int desliga(){

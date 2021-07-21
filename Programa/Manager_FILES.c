@@ -41,6 +41,7 @@ int UpdateManager (int N){
 	else if(N==2 && (atual[1] < atual[0]) ){	
 		cache[0] = atual[0];
 		cache[1] = atual[1] + 1; //modifica apenas "voos processados"
+		if(cache[0]==cache[1]) printf("Process OK\n");
 		WriteManager(cache);
 		return (1);
 	}
@@ -52,23 +53,17 @@ int UpdateManager (int N){
 
 }
 
-char* NameIN (char *Name){
+char* NameRead (char *Name){
 	int *NumLido = ReadManager();
 	char *name = (char *) malloc (sizeof(LocalSave) + sizeof(Name) + sizeof("_") + sizeof(NumLido[0]) + sizeof(Extension) );
 	sprintf (name, "%s%s_%d%s", LocalSave, Name, NumLido[0], Extension);
 	return name;
 }
 
-char* NameOUT (char *Name){
+char* NameProcess (char *Name){
 	int *NumLido = ReadManager();
-	char *name = (char *) malloc (sizeof(LocalSave) + sizeof(Name) + sizeof("_") + sizeof(NumLido[0]) + sizeof(Extension) );
-	sprintf (name, "%s%s_%d%s", LocalSave, Name, NumLido[0], Extension);
+	char *name = (char *) malloc (sizeof(LocalSave) + sizeof(Name) + sizeof("_") + sizeof(NumLido[1]) + sizeof(Extension) );
+	sprintf (name, "%s%s_%d%s", LocalSave, Name, NumLido[1], Extension);
 	return name;
 }
 
-char* NameProcess (char *Name, int n){
-	int NumLido = n;
-	char *name = (char *) malloc (sizeof(LocalSave) + sizeof(Name) + sizeof("_") + sizeof(NumLido) + sizeof(Extension) );
-	sprintf (name, "%s%s_%d%s", LocalSave, Name, NumLido, Extension);
-	return name;
-}

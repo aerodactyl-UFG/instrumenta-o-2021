@@ -21,7 +21,7 @@ void read_pitot(int *estado) {
     fd = open("/dev/i2c-1", O_RDWR);
     char file_pitot[] = PITOT_IN;
     FILE *fp_pitot;
-    fp_pitot = fopen(NameIN(file_pitot), "ab");
+    fp_pitot = fopen(NameRead(file_pitot), "ab");
     int timer;
 
     while(*estado == 1){

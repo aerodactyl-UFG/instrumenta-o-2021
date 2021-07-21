@@ -57,8 +57,8 @@ void process_pitot (){
     char file_in[] = PITOT_IN;
     char file_out[] = PITOT_OUT;
     
-    fp_in = fopen(NameIN(file_in), "rb");
-    fp_out = fopen(NameOUT(file_out),"wb");
+    fp_in = fopen(NameProcess(file_in), "rb");
+    fp_out = fopen(NameProcess(file_out),"wb");
     int k;
     k = fscanf (fp_in,"%d", &Timer);
     time_zero = Timer;
@@ -68,7 +68,7 @@ void process_pitot (){
     	fscanf (fp_in,"%d", &dp_raw);
     	fscanf (fp_in,"%d", &dT_raw);
         process_airspeed();
-        fprintf (fp_out ,"time: %f \t V: %.4f \t T: %.2f\n", time_out, airspeed, temperature);
+        fprintf (fp_out ,"%f %.4f %.2f\n", time_out, airspeed, temperature);
 	k = fscanf (fp_in, "%d", &Timer);
     }
     time_zero = 0;

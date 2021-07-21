@@ -53,7 +53,7 @@ int read_imu(int *estado){
     int Timer;
     char file_in[] = IMU; 
     FILE *fp_in;
-    fp_in = fopen( NameIN(file_in), "ab");
+    fp_in = fopen( NameRead(file_in), "ab");
 
     gyro_device_handler = wiringPiI2CSetup(MPU6050_I2C_DEVICE_ADDRESS);
     wiringPiI2CWriteReg8(gyro_device_handler,REGISTER_FOR_POWER_MANAGEMENT,SLEEP_MODE_DISABLED);

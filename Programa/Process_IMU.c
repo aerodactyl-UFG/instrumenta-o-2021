@@ -111,8 +111,8 @@ void process_imu() {
     char file_out[] = IMU_OUT;
     
     FILE *fp_out;
-    fp_imuin = fopen( NameIN(file_in), "rb");
-    fp_out = fopen( NameOUT(file_out),"ab");
+    fp_imuin = fopen( NameProcess(file_in), "rb");
+    fp_out = fopen( NameProcess(file_out),"ab");
     int k; 
     
     double seconds_passed;
@@ -218,7 +218,7 @@ void process_imu() {
 //        roll_complementary  = 0.93 * (roll_complementary + roll_gyro_rate_deg_per_sec * seconds_passed) + 0.07 * roll;
 //        pitch_complementary = 0.93 * (pitch_complementary + pitch_gyro_rate_deg_per_sec * seconds_passed) + 0.07 * pitch;
 
-        fprintf(fp_out, "\n%f\t%.2f\t%.2f",(double(timer)-double(time_SetZero))/1000000, roll_kalman, pitch_kalman );
+        fprintf(fp_out, "%f %.2f %.2f\n",(double(timer)-double(time_SetZero))/1000000, roll_kalman, pitch_kalman );
 
     }
 }
